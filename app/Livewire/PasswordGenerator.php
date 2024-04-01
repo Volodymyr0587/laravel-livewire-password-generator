@@ -4,33 +4,34 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Enums\PasswordPart;
+use Livewire\Attributes\Validate;
 
 class PasswordGenerator extends Component
 {
+    #[Validate('required|numeric|min:6|max:32')]
     public $length;
+
+    #[Validate('nullable|boolean')]
     public $uppercase;
-    public $lowercase;
+
+    #[Validate('nullable|boolean')]
     public $numbers;
+
+    #[Validate('nullable|boolean')]
     public $symbols;
+
+    #[Validate('required|numeric|min:1|max:10')]
     public $quantity;
+
     public $passwords = [];
 
-    protected $rules = [
-        'lenght' => 'required|numeric|min:6|max:32',
-        'uppercase' => 'nullable|boolean',
-        'lowercase' => 'nullable|boolean',
-        'numbers' => 'nullable|boolean',
-        'symbols' => 'nullable|boolean',
-        'quantity' => 'required|numeric|min:1|max:10',
-    ];
 
     public function generatePasswords()
     {
-        // $this->validate();
+        $this->validate();
 
-        $characters = '';
+        $characters = PasswordPart::Lowercase->value;
         $characters .= $this->uppercase ? PasswordPart::Uppercase->value : '';
-        $characters .= $this->lowercase ? PasswordPart::Lowercase->value : '';
         $characters .= $this->numbers ? PasswordPart::Numbers->value : '';
         $characters .= $this->symbols ? PasswordPart::Symbols->value : '';
 
