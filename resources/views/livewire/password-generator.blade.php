@@ -94,7 +94,7 @@
                     <p class="text-red-500">@error('quantity') {{ $message }} @enderror</p>
                 </div>
 
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                <button onclick="showMessage('Passwords generated successfully');" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
                     Generate
                 </button>
 
@@ -104,13 +104,35 @@
             <div class="w-full flex justify-center">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 justify-items-center mt-6 w-2/3">
                     @foreach ($passwords as $password)
-                        <p class="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 wrap-text">{{ $password }}</p>
+                        <p class="flex flex-wrap justify-between bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg  w-full p-2.5">
+                            {{ $password }}
+                        </p>
                     @endforeach
                 </div>
             </div>
-
-
     </div>
 
 </section>
 </div>
+
+<script>
+    function showMessage(message) {
+        // Show a message
+        var messageElement = document.createElement("div");
+        messageElement.innerText = message;
+        messageElement.style.position = "fixed";
+        messageElement.style.bottom = "20px";
+        messageElement.style.right = "20px";
+        messageElement.style.background = "rgba(0, 0, 0, 0.8)";
+        messageElement.style.color = "white";
+        messageElement.style.padding = "10px";
+        messageElement.style.borderRadius = "5px";
+        messageElement.style.zIndex = "9999";
+        document.body.appendChild(messageElement);
+        // Remove the message after a few seconds
+        setTimeout(function() {
+            document.body.removeChild(messageElement);
+        }, 4000);
+
+        }
+</script>
